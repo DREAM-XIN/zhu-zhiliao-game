@@ -1,0 +1,15 @@
+version: 0.1.0
+id: requirement-working-001
+feature_id: F-ZHIZHILIAO-MVP-0001
+expected_revision: 0
+occurred_at: '2026-08-08T12:26:00Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: requirement-v1
+      type: requirement
+      uri: docs/features/F-ZHIZHILIAO-MVP-0001/requirement.md
+      status: draft
+  - kind: stage
+    id: requirement
+    status: WORKING
