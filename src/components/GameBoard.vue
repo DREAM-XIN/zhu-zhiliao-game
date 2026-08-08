@@ -17,7 +17,7 @@ const transform = computed(() => `translate3d(${offsetX.value}px, ${offsetY.valu
       class="cicada-target"
       :class="{ dragging: activePointerId !== null, hot: props.combo >= 5 }"
       :style="{ transform }"
-      role="button"
+      role="group"
       tabindex="0"
       aria-label="竹知了互动目标。请使用触摸、鼠标或触控笔按住并快速来回拖动。"
       @pointerdown="onPointerDown"
