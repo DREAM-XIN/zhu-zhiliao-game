@@ -1,0 +1,8 @@
+version: 0.1.0
+feature:
+  id: F-ZHIZHILIAO-MVP-0001
+  title: 竹知了网页小游戏 MVP
+  risk: medium
+  issue: '#1'
+profile: standard-feature
+created_at: '2026-08-08T12:15:19Z'

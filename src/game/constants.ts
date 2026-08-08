@@ -1,0 +1,9 @@
+export const ROUND_DURATION_MS = 30_000
+export const MIN_SHAKE_DISTANCE_PX = 18
+export const MAX_SAMPLE_GAP_MS = 220
+export const BASE_SHAKE_SCORE = 10
+export const COMBO_WINDOW_MS = 650
+export const MAX_COMBO_MULTIPLIER = 3
+export const MODIFIER_TRIGGER_PROBABILITY = 0.08
+export const MODIFIER_DURATION_MS = 3_000
+export const MODIFIER_SCORE_MULTIPLIER = 2

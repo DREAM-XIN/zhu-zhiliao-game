@@ -1,0 +1,12 @@
+version: 0.1.0
+id: requirement-completed-001
+feature_id: F-ZHIZHILIAO-MVP-0001
+expected_revision: 1
+occurred_at: '2026-08-08T12:27:00Z'
+changes:
+  - kind: stage
+    id: requirement
+    status: DONE
+  - kind: stage
+    id: requirement-review
+    status: READY

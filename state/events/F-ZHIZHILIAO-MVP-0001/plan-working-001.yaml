@@ -1,0 +1,9 @@
+version: 0.1.0
+id: plan-working-001
+feature_id: F-ZHIZHILIAO-MVP-0001
+expected_revision: 7
+occurred_at: '2026-08-08T12:35:30Z'
+changes:
+  - kind: stage
+    id: plan
+    status: WORKING

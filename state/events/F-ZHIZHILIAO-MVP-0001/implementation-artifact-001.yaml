@@ -1,0 +1,12 @@
+version: 0.1.0
+id: implementation-artifact-001
+feature_id: F-ZHIZHILIAO-MVP-0001
+expected_revision: 10
+occurred_at: '2026-08-08T12:52:00Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: implementation-v1
+      type: implementation
+      uri: docs/features/F-ZHIZHILIAO-MVP-0001/implementation.md
+      status: draft

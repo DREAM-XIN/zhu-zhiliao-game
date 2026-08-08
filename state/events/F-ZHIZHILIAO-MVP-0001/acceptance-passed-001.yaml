@@ -1,0 +1,27 @@
+version: 0.1.0
+id: acceptance-passed-001
+feature_id: F-ZHIZHILIAO-MVP-0001
+expected_revision: 15
+occurred_at: '2026-08-08T13:27:00Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: acceptance-v1
+      type: acceptance
+      uri: docs/features/F-ZHIZHILIAO-MVP-0001/acceptance.md
+      status: draft
+  - kind: evidence
+    record:
+      id: acceptance-pass-001
+      type: approval
+      status: pass
+      uri: docs/features/F-ZHIZHILIAO-MVP-0001/evidence/acceptance-pass.md
+  - kind: stage
+    id: acceptance
+    status: DONE
+  - kind: gate
+    id: release-gate
+    status: PASS
+    evidence:
+      - acceptance-pass-001
+      - implementation-ci-pass-001

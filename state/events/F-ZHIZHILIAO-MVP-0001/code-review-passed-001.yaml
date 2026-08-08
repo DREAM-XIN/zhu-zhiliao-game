@@ -1,0 +1,38 @@
+version: 0.1.0
+id: code-review-passed-001
+feature_id: F-ZHIZHILIAO-MVP-0001
+expected_revision: 12
+occurred_at: '2026-08-08T13:14:00Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: code-review-v1
+      type: code-review
+      uri: docs/features/F-ZHIZHILIAO-MVP-0001/reviews/code-review.md
+      status: draft
+  - kind: evidence
+    record:
+      id: code-review-pass-001
+      type: review
+      status: pass
+      uri: docs/features/F-ZHIZHILIAO-MVP-0001/evidence/code-review-pass.md
+  - kind: artifact
+    id: implementation-v1
+    status: approved
+    evidence:
+      - code-review-pass-001
+  - kind: gate
+    id: code-gate
+    status: PASS
+    evidence:
+      - code-review-pass-001
+      - implementation-ci-pass-001
+  - kind: stage
+    id: code-review
+    status: WORKING
+  - kind: stage
+    id: code-review
+    status: DONE
+  - kind: stage
+    id: verification
+    status: READY
