@@ -1,5 +1,5 @@
 protocol_version: 0.1.0
-revision: 1
+revision: 2
 feature:
   id: F-ZHIZHILIAO-DEPLOY-0002
   title: "GitHub Pages \u5728\u7EBF\u8BD5\u73A9\u90E8\u7F72"
@@ -8,12 +8,12 @@ feature:
 workflow:
   profile: standard-feature
   status: ACTIVE
-  current_stage: requirement
+  current_stage: requirement-review
   stages:
   - id: requirement
-    status: WORKING
+    status: DONE
   - id: requirement-review
-    status: TODO
+    status: READY
     gate: requirement-gate
   - id: design
     status: TODO
@@ -34,7 +34,11 @@ workflow:
     status: TODO
     gate: release-gate
 tasks: []
-artifacts: []
+artifacts:
+- id: requirement-v1
+  type: requirement
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/requirement.md
+  status: draft
 gates:
 - id: requirement-gate
   status: PENDING
@@ -49,4 +53,5 @@ gates:
 evidence: []
 applied_events:
 - req-start-r0
-updated_at: '2026-08-08T13:52:30Z'
+- req-complete-r1
+updated_at: '2026-08-08T13:55:30Z'
