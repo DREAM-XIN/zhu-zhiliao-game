@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { applySessionShake, startSession } from '../src/game/session'
+import { advanceSessionTime, applySessionShake, startSession } from '../src/game/session'
 
 describe('session determinism', () => {
   it('uses injected randomness for repeatable modifier behavior', () => {
@@ -11,5 +11,13 @@ describe('session determinism', () => {
     const second = applySessionShake(first, 200, () => 0.5)
     expect(second.score).toBe(30)
     expect(second.combo).toBe(2)
+  })
+
+  it('drops the visible combo after the combo window without a new shake', () => {
+    const first = applySessionShake(startSession(0), 100, () => 0.5)
+    expect(advanceSessionTime(first, 750).combo).toBe(1)
+    const expired = advanceSessionTime(first, 751)
+    expect(expired.combo).toBe(0)
+    expect(expired.lastShakeAtMs).toBeNull()
   })
 })
