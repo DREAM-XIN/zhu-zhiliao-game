@@ -1,0 +1,9 @@
+version: 0.1.0
+id: acceptance-working-001
+feature_id: F-ZHIZHILIAO-MVP-0001
+expected_revision: 14
+occurred_at: '2026-08-08T13:26:30Z'
+changes:
+  - kind: stage
+    id: acceptance
+    status: WORKING
