@@ -1,8 +1,8 @@
 version: 0.1.0
 id: acceptance-passed-001
 feature_id: F-ZHIZHILIAO-MVP-0001
-expected_revision: 14
-occurred_at: '2026-08-08T13:23:00Z'
+expected_revision: 15
+occurred_at: '2026-08-08T13:27:00Z'
 changes:
   - kind: artifact-record
     record:
