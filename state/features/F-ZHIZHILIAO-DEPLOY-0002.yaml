@@ -1,5 +1,5 @@
 protocol_version: 0.1.0
-revision: 6
+revision: 7
 feature:
   id: F-ZHIZHILIAO-DEPLOY-0002
   title: "GitHub Pages \u5728\u7EBF\u8BD5\u73A9\u90E8\u7F72"
@@ -18,7 +18,7 @@ workflow:
   - id: design
     status: DONE
   - id: design-review
-    status: READY
+    status: WORKING
     gate: design-gate
   - id: plan
     status: TODO
@@ -72,4 +72,5 @@ applied_events:
 - requirement-review-passed-r3
 - design-working-r4
 - design-complete-r5
-updated_at: '2026-08-08T14:16:00Z'
+- design-review-working-r6
+updated_at: '2026-08-08T14:18:00Z'
