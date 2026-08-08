@@ -1,0 +1,9 @@
+version: 0.1.0
+id: requirement-review-working-001
+feature_id: F-ZHIZHILIAO-MVP-0001
+expected_revision: 2
+occurred_at: '2026-08-08T12:28:00Z'
+changes:
+  - kind: stage
+    id: requirement-review
+    status: WORKING
