@@ -43,10 +43,22 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify Pages asset paths
+        run: |
+          test -f dist/index.html
+          grep -q 'src="/zhu-zhiliao-game/assets/' dist/index.html
+          grep -q 'href="/zhu-zhiliao-game/assets/' dist/index.html
+          if grep -Eq '(src|href)="/assets/' dist/index.html; then
+            echo 'Found incorrect domain-root /assets path in dist/index.html' >&2
+            exit 1
+          fi
+
       - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v6
 
       - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
