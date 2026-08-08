@@ -1,0 +1,87 @@
+name: AI-SDLC Public Transport Smoke
+
+on:
+  push:
+    branches:
+      - agent/public-transport-smoke
+    paths:
+      - .github/workflows/ai-sdlc-public-transport-smoke.yml
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe trusted control dispatch
+        id: probe
+        shell: bash
+        env:
+          CONTROL_TOKEN: ${{ secrets.AI_SDLC_CONTROL_DISPATCH_TOKEN }}
+          CALLER_TOKEN: ${{ github.token }}
+          TARGET_REPOSITORY: ${{ github.repository }}
+          TARGET_REF: feature/F-ZHIZHILIAO-DEPLOY-0002
+          MANIFEST_PATH: state/features/F-ZHIZHILIAO-DEPLOY-0002.yaml
+          ISSUE_NUMBER: '3'
+        run: |
+          set -u
+          command_run="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          if [[ -z "${CONTROL_TOKEN:-}" ]]; then
+            GH_TOKEN="$CALLER_TOKEN" gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" \
+              --body "AI-SDLC public transport smoke: **BLOCKED** — repository secret \`AI_SDLC_CONTROL_DISPATCH_TOKEN\` is missing. Smoke run: $command_run"
+            exit 2
+          fi
+
+          if ! GH_TOKEN="$CONTROL_TOKEN" gh api repos/DREAM-XIN/ai-sdlc --silent; then
+            GH_TOKEN="$CALLER_TOKEN" gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" \
+              --body "AI-SDLC public transport smoke: **BLOCKED** — \`AI_SDLC_CONTROL_DISPATCH_TOKEN\` cannot read \`DREAM-XIN/ai-sdlc\`. Smoke run: $command_run"
+            exit 3
+          fi
+
+          request_id="smoke-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          if ! GH_TOKEN="$CONTROL_TOKEN" gh workflow run ai-sdlc-cross-repo-lifecycle.yml \
+            --repo DREAM-XIN/ai-sdlc --ref main \
+            --field request_id="$request_id" \
+            --field operation=plan \
+            --field target_repository="$TARGET_REPOSITORY" \
+            --field target_ref="$TARGET_REF" \
+            --field manifest_path="$MANIFEST_PATH" \
+            --field bootstrap_path= \
+            --field event_path= \
+            --field feature_issue="$ISSUE_NUMBER" \
+            --field project_path=.ai-sdlc/project.yaml \
+            --field persist=false; then
+            GH_TOKEN="$CALLER_TOKEN" gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" \
+              --body "AI-SDLC public transport smoke: **BLOCKED** — control token can read the private control repo but cannot dispatch \`ai-sdlc-cross-repo-lifecycle.yml\`. Smoke run: $command_run"
+            exit 4
+          fi
+
+          run_json=''
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            GH_TOKEN="$CONTROL_TOKEN" gh api "repos/DREAM-XIN/ai-sdlc/actions/workflows/ai-sdlc-cross-repo-lifecycle.yml/runs?event=workflow_dispatch&per_page=20" > control-runs.json
+            run_json=$(REQUEST_ID="$request_id" python - <<'PY'
+          import json, os
+          expected=f"AI-SDLC lifecycle {os.environ['REQUEST_ID']}"
+          runs=json.load(open('control-runs.json')).get('workflow_runs', [])
+          matches=[r for r in runs if r.get('display_title') == expected]
+          matches.sort(key=lambda r: (r.get('created_at') or '', int(r.get('id') or 0)), reverse=True)
+          r=matches[0] if matches else None
+          print(json.dumps({'id':r['id'],'url':r['html_url'],'status':r['status'],'conclusion':r.get('conclusion')}) if r else '')
+          PY
+            )
+            [[ -n "$run_json" ]] && break
+            sleep 2
+          done
+
+          if [[ -z "$run_json" ]]; then
+            GH_TOKEN="$CALLER_TOKEN" gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" \
+              --body "AI-SDLC public transport smoke: **DISPATCHED but unresolved** — the private workflow dispatch was accepted, but its run could not be resolved. Request: \`$request_id\`. Smoke run: $command_run"
+            exit 5
+          fi
+
+          downstream_id=$(jq -r '.id' <<<"$run_json")
+          downstream_url=$(jq -r '.url' <<<"$run_json")
+          GH_TOKEN="$CALLER_TOKEN" gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" \
+            --body "AI-SDLC public transport smoke: **DISPATCH OK** — private control workflow run $downstream_id created successfully: $downstream_url. Request: \`$request_id\`. This probe is read-only (\`operation=plan\`) and did not modify Feature state. Smoke run: $command_run"
