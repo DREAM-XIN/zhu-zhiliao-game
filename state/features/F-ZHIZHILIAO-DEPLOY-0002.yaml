@@ -1,5 +1,5 @@
 protocol_version: 0.1.0
-revision: 9
+revision: 10
 feature:
   id: F-ZHIZHILIAO-DEPLOY-0002
   title: "GitHub Pages \u5728\u7EBF\u8BD5\u73A9\u90E8\u7F72"
@@ -8,7 +8,7 @@ feature:
 workflow:
   profile: standard-feature
   status: ACTIVE
-  current_stage: plan
+  current_stage: implementation
   stages:
   - id: requirement
     status: DONE
@@ -21,9 +21,9 @@ workflow:
     status: DONE
     gate: design-gate
   - id: plan
-    status: WORKING
+    status: DONE
   - id: implementation
-    status: TODO
+    status: READY
   - id: code-review
     status: TODO
     gate: code-gate
@@ -50,6 +50,10 @@ artifacts:
 - id: design-review-v1
   type: design-review
   uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/design-review.md
+  status: draft
+- id: plan-v1
+  type: implementation-plan
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/plan.md
   status: draft
 gates:
 - id: requirement-gate
@@ -85,4 +89,5 @@ applied_events:
 - design-review-working-r6
 - design-review-passed-r7
 - plan-working-r8
-updated_at: '2026-08-08T14:22:00Z'
+- plan-completed-r9
+updated_at: '2026-08-08T14:23:00Z'
