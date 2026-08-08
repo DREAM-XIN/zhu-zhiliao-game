@@ -1,5 +1,5 @@
 protocol_version: 0.1.0
-revision: 11
+revision: 12
 feature:
   id: F-ZHIZHILIAO-MVP-0001
   title: "\u7AF9\u77E5\u4E86\u7F51\u9875\u5C0F\u6E38\u620F MVP"
@@ -8,7 +8,7 @@ feature:
 workflow:
   profile: standard-feature
   status: ACTIVE
-  current_stage: implementation
+  current_stage: code-review
   stages:
   - id: requirement
     status: DONE
@@ -23,9 +23,9 @@ workflow:
   - id: plan
     status: DONE
   - id: implementation
-    status: WORKING
+    status: DONE
   - id: code-review
-    status: TODO
+    status: READY
     gate: code-gate
   - id: verification
     status: TODO
@@ -83,6 +83,10 @@ evidence:
   type: review
   status: pass
   uri: docs/features/F-ZHIZHILIAO-MVP-0001/reviews/design-review.md
+- id: implementation-ci-pass-001
+  type: verification
+  status: pass
+  uri: docs/features/F-ZHIZHILIAO-MVP-0001/evidence/implementation-verification.md
 applied_events:
 - requirement-working-001
 - requirement-completed-001
@@ -95,4 +99,5 @@ applied_events:
 - plan-completed-001
 - implementation-working-001
 - implementation-artifact-001
-updated_at: '2026-08-08T12:52:00Z'
+- implementation-completed-001
+updated_at: '2026-08-08T13:08:00Z'
