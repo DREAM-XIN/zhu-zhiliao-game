@@ -1,5 +1,5 @@
 protocol_version: 0.1.0
-revision: 1
+revision: 2
 feature:
   id: F-ZHIZHILIAO-MVP-0001
   title: "\u7AF9\u77E5\u4E86\u7F51\u9875\u5C0F\u6E38\u620F MVP"
@@ -8,12 +8,12 @@ feature:
 workflow:
   profile: standard-feature
   status: ACTIVE
-  current_stage: requirement
+  current_stage: requirement-review
   stages:
   - id: requirement
-    status: WORKING
+    status: DONE
   - id: requirement-review
-    status: TODO
+    status: READY
     gate: requirement-gate
   - id: design
     status: TODO
@@ -53,4 +53,5 @@ gates:
 evidence: []
 applied_events:
 - requirement-working-001
-updated_at: '2026-08-08T12:26:00Z'
+- requirement-completed-001
+updated_at: '2026-08-08T12:27:00Z'
