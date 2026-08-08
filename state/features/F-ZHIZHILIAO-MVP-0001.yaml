@@ -1,5 +1,5 @@
 protocol_version: 0.1.0
-revision: 15
+revision: 16
 feature:
   id: F-ZHIZHILIAO-MVP-0001
   title: "\u7AF9\u77E5\u4E86\u7F51\u9875\u5C0F\u6E38\u620F MVP"
@@ -7,7 +7,7 @@ feature:
   issue: '#1'
 workflow:
   profile: standard-feature
-  status: ACTIVE
+  status: DONE
   current_stage: acceptance
   stages:
   - id: requirement
@@ -31,7 +31,7 @@ workflow:
     status: DONE
     gate: verification-gate
   - id: acceptance
-    status: WORKING
+    status: DONE
     gate: release-gate
 tasks: []
 artifacts:
@@ -67,6 +67,10 @@ artifacts:
   type: verification
   uri: docs/features/F-ZHIZHILIAO-MVP-0001/verification.md
   status: draft
+- id: acceptance-v1
+  type: acceptance
+  uri: docs/features/F-ZHIZHILIAO-MVP-0001/acceptance.md
+  status: draft
 gates:
 - id: requirement-gate
   status: PASS
@@ -87,7 +91,10 @@ gates:
   - implementation-ci-pass-001
   - verification-pass-001
 - id: release-gate
-  status: PENDING
+  status: PASS
+  evidence:
+  - acceptance-pass-001
+  - implementation-ci-pass-001
 evidence:
 - id: requirement-review-pass-001
   type: review
@@ -109,6 +116,10 @@ evidence:
   type: verification
   status: pass
   uri: docs/features/F-ZHIZHILIAO-MVP-0001/evidence/verification-pass.md
+- id: acceptance-pass-001
+  type: approval
+  status: pass
+  uri: docs/features/F-ZHIZHILIAO-MVP-0001/evidence/acceptance-pass.md
 applied_events:
 - requirement-working-001
 - requirement-completed-001
@@ -125,4 +136,5 @@ applied_events:
 - code-review-passed-001
 - verification-passed-001
 - acceptance-working-001
-updated_at: '2026-08-08T13:26:30Z'
+- acceptance-passed-001
+updated_at: '2026-08-08T13:27:00Z'
