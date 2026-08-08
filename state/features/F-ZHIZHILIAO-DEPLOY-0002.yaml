@@ -1,5 +1,5 @@
 protocol_version: 0.1.0
-revision: 11
+revision: 12
 feature:
   id: F-ZHIZHILIAO-DEPLOY-0002
   title: "GitHub Pages \u5728\u7EBF\u8BD5\u73A9\u90E8\u7F72"
@@ -55,6 +55,10 @@ artifacts:
   type: implementation-plan
   uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/plan.md
   status: draft
+- id: implementation-v1
+  type: implementation
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/implementation.md
+  status: draft
 gates:
 - id: requirement-gate
   status: PASS
@@ -91,4 +95,5 @@ applied_events:
 - plan-working-r8
 - plan-completed-r9
 - implementation-working-r10
-updated_at: '2026-08-08T14:26:00Z'
+- implementation-artifact-r11
+updated_at: '2026-08-08T14:33:00Z'
