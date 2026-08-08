@@ -1,5 +1,5 @@
 protocol_version: 0.1.0
-revision: 12
+revision: 13
 feature:
   id: F-ZHIZHILIAO-DEPLOY-0002
   title: "GitHub Pages \u5728\u7EBF\u8BD5\u73A9\u90E8\u7F72"
@@ -8,7 +8,7 @@ feature:
 workflow:
   profile: standard-feature
   status: ACTIVE
-  current_stage: implementation
+  current_stage: code-review
   stages:
   - id: requirement
     status: DONE
@@ -23,9 +23,9 @@ workflow:
   - id: plan
     status: DONE
   - id: implementation
-    status: WORKING
+    status: DONE
   - id: code-review
-    status: TODO
+    status: READY
     gate: code-gate
   - id: verification
     status: TODO
@@ -83,6 +83,10 @@ evidence:
   type: review
   status: pass
   uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/design-review.md
+- id: implementation-ci-pass-001
+  type: verification
+  status: pass
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/evidence/implementation-verification.md
 applied_events:
 - req-start-r0
 - req-complete-r1
@@ -96,4 +100,5 @@ applied_events:
 - plan-completed-r9
 - implementation-working-r10
 - implementation-artifact-r11
-updated_at: '2026-08-08T14:33:00Z'
+- implementation-completed-r12
+updated_at: '2026-08-08T14:34:00Z'
