@@ -1,0 +1,18 @@
+version: 0.1.0
+id: req-complete-r1
+feature_id: F-ZHIZHILIAO-DEPLOY-0002
+expected_revision: 1
+occurred_at: '2026-08-08T13:55:30Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: requirement-v1
+      type: requirement
+      uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/requirement.md
+      status: draft
+  - kind: stage
+    id: requirement
+    status: DONE
+  - kind: stage
+    id: requirement-review
+    status: READY
