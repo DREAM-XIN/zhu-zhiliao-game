@@ -7,7 +7,7 @@ on:
   pull_request:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   verify:
@@ -24,18 +24,15 @@ jobs:
           else
             npm install
           fi
+      - name: Export generated lockfile
+        if: ${{ !hashFiles('package-lock.json') }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-lockfile
+          path: package-lock.json
       - name: Typecheck
         run: npm run typecheck
       - name: Test
         run: npm run test
       - name: Build
         run: npm run build
-      - name: Persist generated lockfile
-        if: ${{ github.event_name == 'push' && !hashFiles('package-lock.json') }}
-        shell: bash
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add package-lock.json
-          git commit -m "build: add npm lockfile"
-          git push origin HEAD:${GITHUB_REF_NAME}
