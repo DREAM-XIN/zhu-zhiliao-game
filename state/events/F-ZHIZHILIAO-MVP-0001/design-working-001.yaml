@@ -1,0 +1,9 @@
+version: 0.1.0
+id: design-working-001
+feature_id: F-ZHIZHILIAO-MVP-0001
+expected_revision: 4
+occurred_at: '2026-08-08T12:30:00Z'
+changes:
+  - kind: stage
+    id: design
+    status: WORKING
