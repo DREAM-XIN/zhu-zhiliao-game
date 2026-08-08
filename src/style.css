@@ -10,7 +10,7 @@
 html, body, #app { min-width: 320px; min-height: 100%; }
 body { margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden; }
 button { font: inherit; }
-button:focus-visible, [role="button"]:focus-visible { outline: 4px solid #ffcf5a; outline-offset: 4px; }
+button:focus-visible, [role="group"]:focus-visible { outline: 4px solid #ffcf5a; outline-offset: 4px; }
 
 body::before {
   content: ""; position: fixed; inset: 0; pointer-events: none;
@@ -68,6 +68,6 @@ h1 { margin: 0; font-size: clamp(38px, 11vw, 66px); line-height: .98; letter-spa
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
-  .cicada-target { will-change: auto; }
+  .cicada-target { transform: none !important; will-change: auto; }
   .primary-button:active { transform: none; }
 }
