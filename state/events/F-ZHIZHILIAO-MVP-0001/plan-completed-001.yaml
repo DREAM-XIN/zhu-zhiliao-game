@@ -1,0 +1,18 @@
+version: 0.1.0
+id: plan-completed-001
+feature_id: F-ZHIZHILIAO-MVP-0001
+expected_revision: 8
+occurred_at: '2026-08-08T12:36:00Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: plan-v1
+      type: implementation-plan
+      uri: docs/features/F-ZHIZHILIAO-MVP-0001/plan.md
+      status: draft
+  - kind: stage
+    id: plan
+    status: DONE
+  - kind: stage
+    id: implementation
+    status: READY
