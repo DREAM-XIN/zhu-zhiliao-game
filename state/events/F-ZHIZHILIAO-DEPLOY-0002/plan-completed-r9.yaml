@@ -1,0 +1,18 @@
+version: 0.1.0
+id: plan-completed-r9
+feature_id: F-ZHIZHILIAO-DEPLOY-0002
+expected_revision: 9
+occurred_at: '2026-08-08T14:23:00Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: plan-v1
+      type: implementation-plan
+      uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/plan.md
+      status: draft
+  - kind: stage
+    id: plan
+    status: DONE
+  - kind: stage
+    id: implementation
+    status: READY
