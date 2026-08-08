@@ -1,0 +1,122 @@
+name: AI-SDLC Persist Event
+
+on:
+  push:
+    paths:
+      - 'state/events/**/*.yaml'
+      - 'state/events/**/*.yml'
+  workflow_dispatch:
+    inputs:
+      target_ref:
+        description: Branch/ref containing the Feature Manifest and Event Inbox file
+        required: true
+        type: string
+      manifest_path:
+        description: Feature Manifest path under state/features/
+        required: true
+        type: string
+      event_path:
+        description: Event Inbox path under state/events/<feature-id>/
+        required: true
+        type: string
+      feature_issue:
+        description: Optional numeric Feature Issue
+        required: false
+        default: ''
+        type: string
+      dry_run:
+        description: Validate/materialize without committing or pushing
+        required: true
+        default: true
+        type: boolean
+      allow_default_branch:
+        description: Explicitly permit persistence to the default branch
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  persist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.target_ref || github.ref_name }}
+          fetch-depth: 0
+      - name: Resolve automatic Feature Event push
+        id: auto
+        if: ${{ github.event_name == 'push' }}
+        uses: DREAM-XIN/ai-sdlc/.github/actions/resolve-event-push@7f691352a0ce513791209087e945745bf901c6b8
+        with:
+          before_sha: ${{ github.event.before }}
+          after_sha: ${{ github.sha }}
+      - name: Resolve persistence request
+        id: request
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          AUTO_MODE: ${{ steps.auto.outputs.mode }}
+          AUTO_EVENT_PATH: ${{ steps.auto.outputs.event_path }}
+          AUTO_MANIFEST_PATH: ${{ steps.auto.outputs.manifest_path }}
+          AUTO_EVENT_COUNT: ${{ steps.auto.outputs.event_count }}
+          MANUAL_EVENT_PATH: ${{ inputs.event_path }}
+          MANUAL_MANIFEST_PATH: ${{ inputs.manifest_path }}
+          MANUAL_TARGET_REF: ${{ inputs.target_ref }}
+          MANUAL_FEATURE_ISSUE: ${{ inputs.feature_issue }}
+          MANUAL_DRY_RUN: ${{ inputs.dry_run }}
+          MANUAL_ALLOW_DEFAULT_BRANCH: ${{ inputs.allow_default_branch }}
+          PUSH_REF: ${{ github.ref_name }}
+        run: |
+          if [[ "$EVENT_NAME" == "push" ]]; then
+            {
+              echo "mode=$AUTO_MODE"
+              echo "event_path=$AUTO_EVENT_PATH"
+              echo "manifest_path=$AUTO_MANIFEST_PATH"
+              echo "target_ref=$PUSH_REF"
+              echo "feature_issue="
+              echo "persist=true"
+              echo "allow_default_branch=false"
+              echo "event_count=$AUTO_EVENT_COUNT"
+            } >> "$GITHUB_OUTPUT"
+          else
+            {
+              echo "mode=persist"
+              echo "event_path=$MANUAL_EVENT_PATH"
+              echo "manifest_path=$MANUAL_MANIFEST_PATH"
+              echo "target_ref=$MANUAL_TARGET_REF"
+              echo "feature_issue=$MANUAL_FEATURE_ISSUE"
+              if [[ "$MANUAL_DRY_RUN" == "true" ]]; then echo "persist=false"; else echo "persist=true"; fi
+              echo "allow_default_branch=$MANUAL_ALLOW_DEFAULT_BRANCH"
+              echo "event_count=1"
+            } >> "$GITHUB_OUTPUT"
+          fi
+      - name: Report already-applied Feature Event archive
+        if: ${{ steps.request.outputs.mode == 'noop' }}
+        shell: bash
+        run: echo "No persistence mutation required."
+      - name: Apply AI-SDLC Feature Event
+        id: control
+        if: ${{ steps.request.outputs.mode != 'noop' }}
+        uses: DREAM-XIN/ai-sdlc/.github/actions/control@7f691352a0ce513791209087e945745bf901c6b8
+        with:
+          operation: persist
+          repository: ${{ github.repository }}
+          target_ref: ${{ steps.request.outputs.target_ref }}
+          manifest_path: ${{ steps.request.outputs.manifest_path }}
+          event_path: ${{ steps.request.outputs.event_path }}
+          feature_issue: ${{ steps.request.outputs.feature_issue }}
+          persist: ${{ steps.request.outputs.persist }}
+          allow_default_branch: ${{ steps.request.outputs.allow_default_branch }}
+          default_branch: ${{ github.event.repository.default_branch }}
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: ${{ steps.request.outputs.mode != 'noop' && always() && steps.control.outputs.persistence_plan_path != '' }}
+        with:
+          name: ai-sdlc-persistence-plan
+          path: ${{ steps.control.outputs.persistence_plan_path }}
+      - name: Propagate invalid persistence result
+        if: ${{ steps.request.outputs.mode != 'noop' && steps.control.outputs.exit_code != '0' }}
+        shell: bash
+        run: exit "${{ steps.control.outputs.exit_code }}"
