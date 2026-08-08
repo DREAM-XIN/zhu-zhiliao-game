@@ -1,0 +1,33 @@
+version: 0.1.0
+id: verification-passed-001
+feature_id: F-ZHIZHILIAO-MVP-0001
+expected_revision: 13
+occurred_at: '2026-08-08T13:22:00Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: verification-v1
+      type: verification
+      uri: docs/features/F-ZHIZHILIAO-MVP-0001/verification.md
+      status: draft
+  - kind: evidence
+    record:
+      id: verification-pass-001
+      type: verification
+      status: pass
+      uri: docs/features/F-ZHIZHILIAO-MVP-0001/evidence/verification-pass.md
+  - kind: gate
+    id: verification-gate
+    status: PASS
+    evidence:
+      - verification-pass-001
+      - implementation-ci-pass-001
+  - kind: stage
+    id: verification
+    status: WORKING
+  - kind: stage
+    id: verification
+    status: DONE
+  - kind: stage
+    id: acceptance
+    status: READY
