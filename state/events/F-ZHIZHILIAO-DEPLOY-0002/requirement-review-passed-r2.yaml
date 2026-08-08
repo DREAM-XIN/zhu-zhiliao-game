@@ -1,0 +1,34 @@
+version: 0.1.0
+id: requirement-review-passed-r2
+feature_id: F-ZHIZHILIAO-DEPLOY-0002
+expected_revision: 2
+occurred_at: '2026-08-08T13:58:00Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: requirement-review-v1
+      type: requirement-review
+      uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/requirement-review.md
+      status: draft
+  - kind: evidence
+    record:
+      id: requirement-review-pass-001
+      type: review
+      status: pass
+      uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/requirement-review.md
+  - kind: artifact
+    id: requirement-v1
+    status: approved
+    evidence:
+      - requirement-review-pass-001
+  - kind: gate
+    id: requirement-gate
+    status: PASS
+    evidence:
+      - requirement-review-pass-001
+  - kind: stage
+    id: requirement-review
+    status: DONE
+  - kind: stage
+    id: design
+    status: READY
