@@ -1,5 +1,5 @@
 protocol_version: 0.1.0
-revision: 10
+revision: 11
 feature:
   id: F-ZHIZHILIAO-MVP-0001
   title: "\u7AF9\u77E5\u4E86\u7F51\u9875\u5C0F\u6E38\u620F MVP"
@@ -55,6 +55,10 @@ artifacts:
   type: implementation-plan
   uri: docs/features/F-ZHIZHILIAO-MVP-0001/plan.md
   status: draft
+- id: implementation-v1
+  type: implementation
+  uri: docs/features/F-ZHIZHILIAO-MVP-0001/implementation.md
+  status: draft
 gates:
 - id: requirement-gate
   status: PASS
@@ -90,4 +94,5 @@ applied_events:
 - plan-working-001
 - plan-completed-001
 - implementation-working-001
-updated_at: '2026-08-08T12:38:00Z'
+- implementation-artifact-001
+updated_at: '2026-08-08T12:52:00Z'
