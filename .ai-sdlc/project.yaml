@@ -1,0 +1,37 @@
+version: 0.1.0
+project:
+  id: zhu-zhiliao-game
+  name: Zhu Zhiliao Game
+repository:
+  provider: github
+  full_name: DREAM-XIN/zhu-zhiliao-game
+  default_branch: main
+defaults:
+  workflow_profile: standard-feature
+  runtime_policy: default
+  required_commands: [typecheck, test, build]
+context:
+  rules:
+    - AGENTS.md
+  read:
+    - README.md
+commands:
+  - id: typecheck
+    purpose: typecheck
+    argv: [npm, run, typecheck]
+    cwd: .
+  - id: test
+    purpose: test
+    argv: [npm, run, test]
+    cwd: .
+  - id: build
+    purpose: build
+    argv: [npm, run, build]
+    cwd: .
+ownership:
+  - id: app
+    role: developer
+    roots: [src, tests]
+  - id: project-config
+    role: developer
+    roots: [package.json, vite.config.ts, tsconfig.json, tsconfig.app.json, tsconfig.node.json]
