@@ -1,4 +1,4 @@
-import { ROUND_DURATION_MS } from './constants'
+import { COMBO_WINDOW_MS, ROUND_DURATION_MS } from './constants'
 import { comboMultiplier, nextCombo } from './combo'
 import { inactiveModifier, maybeTriggerModifier, modifierMultiplier, normalizeModifier } from './modifier'
 import { scoreShake } from './scoring'
@@ -30,10 +30,18 @@ export function advanceSessionTime(session: GameSession, nowMs: number): GameSes
       phase: 'finished',
       endedAtMs: session.startedAtMs + ROUND_DURATION_MS,
       combo: 0,
+      lastShakeAtMs: null,
       modifier: inactiveModifier(),
     }
   }
-  return { ...session, modifier: normalizeModifier(session.modifier, nowMs) }
+
+  const comboExpired = session.lastShakeAtMs !== null && nowMs - session.lastShakeAtMs > COMBO_WINDOW_MS
+  return {
+    ...session,
+    combo: comboExpired ? 0 : session.combo,
+    lastShakeAtMs: comboExpired ? null : session.lastShakeAtMs,
+    modifier: normalizeModifier(session.modifier, nowMs),
+  }
 }
 
 export function applySessionShake(
