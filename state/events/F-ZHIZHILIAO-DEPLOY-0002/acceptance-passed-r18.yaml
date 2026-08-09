@@ -1,0 +1,28 @@
+version: 0.1.0
+id: acceptance-passed-r18
+feature_id: F-ZHIZHILIAO-DEPLOY-0002
+expected_revision: 18
+occurred_at: '2026-08-09T06:41:00Z'
+changes:
+- kind: artifact-record
+  record:
+    id: acceptance-v1
+    type: acceptance
+    uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/acceptance.md
+    status: draft
+- kind: evidence
+  record:
+    id: acceptance-pass-001
+    type: approval
+    status: pass
+    uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/evidence/acceptance-pass.md
+- kind: stage
+  id: acceptance
+  status: DONE
+- kind: gate
+  id: release-gate
+  status: PASS
+  evidence:
+  - acceptance-pass-001
+  - production-pages-verification-001
+  - implementation-ci-pass-001
