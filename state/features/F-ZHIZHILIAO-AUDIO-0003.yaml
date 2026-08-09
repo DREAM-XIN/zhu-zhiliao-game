@@ -1,5 +1,5 @@
 protocol_version: 0.1.0
-revision: 2
+revision: 3
 feature:
   id: F-ZHIZHILIAO-AUDIO-0003
   title: "\u6E38\u620F\u97F3\u6548\u4E0E\u58F0\u97F3\u5F00\u5173"
@@ -13,7 +13,7 @@ workflow:
   - id: requirement
     status: DONE
   - id: requirement-review
-    status: READY
+    status: WORKING
     gate: requirement-gate
   - id: design
     status: TODO
@@ -54,4 +54,5 @@ evidence: []
 applied_events:
 - req-start-r0
 - req-complete-r1
-updated_at: '2026-08-09T06:48:00Z'
+- requirement-review-working-r2
+updated_at: '2026-08-09T06:55:00Z'
