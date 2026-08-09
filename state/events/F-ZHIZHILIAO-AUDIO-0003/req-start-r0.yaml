@@ -1,0 +1,9 @@
+version: 0.1.0
+id: req-start-r0
+feature_id: F-ZHIZHILIAO-AUDIO-0003
+expected_revision: 0
+occurred_at: '2026-08-09T06:46:00Z'
+changes:
+  - kind: stage
+    id: requirement
+    status: WORKING
