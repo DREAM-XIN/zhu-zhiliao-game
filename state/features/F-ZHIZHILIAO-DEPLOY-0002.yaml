@@ -1,0 +1,116 @@
+protocol_version: 0.1.0
+revision: 15
+feature:
+  id: F-ZHIZHILIAO-DEPLOY-0002
+  title: "GitHub Pages \u5728\u7EBF\u8BD5\u73A9\u90E8\u7F72"
+  risk: low
+  issue: '#3'
+workflow:
+  profile: standard-feature
+  status: ACTIVE
+  current_stage: verification
+  stages:
+  - id: requirement
+    status: DONE
+  - id: requirement-review
+    status: DONE
+    gate: requirement-gate
+  - id: design
+    status: DONE
+  - id: design-review
+    status: DONE
+    gate: design-gate
+  - id: plan
+    status: DONE
+  - id: implementation
+    status: DONE
+  - id: code-review
+    status: DONE
+    gate: code-gate
+  - id: verification
+    status: READY
+    gate: verification-gate
+  - id: acceptance
+    status: TODO
+    gate: release-gate
+tasks: []
+artifacts:
+- id: requirement-v1
+  type: requirement
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/requirement.md
+  status: approved
+- id: requirement-review-v1
+  type: requirement-review
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/requirement-review.md
+  status: draft
+- id: design-v1
+  type: design
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/design.md
+  status: approved
+- id: design-review-v1
+  type: design-review
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/design-review.md
+  status: draft
+- id: plan-v1
+  type: implementation-plan
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/plan.md
+  status: draft
+- id: implementation-v1
+  type: implementation
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/implementation.md
+  status: approved
+- id: code-review-v1
+  type: code-review
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/code-review.md
+  status: draft
+gates:
+- id: requirement-gate
+  status: PASS
+  evidence:
+  - requirement-review-pass-001
+- id: design-gate
+  status: PASS
+  evidence:
+  - design-review-pass-001
+- id: code-gate
+  status: PASS
+  evidence:
+  - code-review-pass-001
+- id: verification-gate
+  status: PENDING
+- id: release-gate
+  status: PENDING
+evidence:
+- id: requirement-review-pass-001
+  type: review
+  status: pass
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/requirement-review.md
+- id: design-review-pass-001
+  type: review
+  status: pass
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/design-review.md
+- id: implementation-ci-pass-001
+  type: verification
+  status: pass
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/evidence/implementation-verification.md
+- id: code-review-pass-001
+  type: review
+  status: pass
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/code-review.md
+applied_events:
+- req-start-r0
+- req-complete-r1
+- requirement-review-working-r2
+- requirement-review-passed-r3
+- design-working-r4
+- design-complete-r5
+- design-review-working-r6
+- design-review-passed-r7
+- plan-working-r8
+- plan-completed-r9
+- implementation-working-r10
+- implementation-artifact-r11
+- implementation-completed-r12
+- code-review-working-r13
+- code-review-passed-r14
+updated_at: '2026-08-09T06:27:00Z'

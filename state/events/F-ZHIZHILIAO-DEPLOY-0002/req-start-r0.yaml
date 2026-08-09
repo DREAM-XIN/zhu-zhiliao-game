@@ -1,0 +1,9 @@
+version: 0.1.0
+id: req-start-r0
+feature_id: F-ZHIZHILIAO-DEPLOY-0002
+expected_revision: 0
+occurred_at: '2026-08-08T13:52:30Z'
+changes:
+  - kind: stage
+    id: requirement
+    status: WORKING

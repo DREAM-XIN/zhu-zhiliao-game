@@ -1,0 +1,8 @@
+version: 0.1.0
+feature:
+  id: F-ZHIZHILIAO-DEPLOY-0002
+  title: GitHub Pages 在线试玩部署
+  risk: low
+  issue: '#3'
+profile: standard-feature
+created_at: '2026-08-08T13:48:00Z'

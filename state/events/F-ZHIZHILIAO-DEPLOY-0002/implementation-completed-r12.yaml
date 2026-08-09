@@ -1,0 +1,18 @@
+version: 0.1.0
+id: implementation-completed-r12
+feature_id: F-ZHIZHILIAO-DEPLOY-0002
+expected_revision: 12
+occurred_at: '2026-08-08T14:34:00Z'
+changes:
+  - kind: evidence
+    record:
+      id: implementation-ci-pass-001
+      type: verification
+      status: pass
+      uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/evidence/implementation-verification.md
+  - kind: stage
+    id: implementation
+    status: DONE
+  - kind: stage
+    id: code-review
+    status: READY

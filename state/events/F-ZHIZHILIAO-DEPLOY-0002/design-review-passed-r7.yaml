@@ -1,0 +1,34 @@
+version: 0.1.0
+id: design-review-passed-r7
+feature_id: F-ZHIZHILIAO-DEPLOY-0002
+expected_revision: 7
+occurred_at: '2026-08-08T14:20:00Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: design-review-v1
+      type: design-review
+      uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/design-review.md
+      status: draft
+  - kind: evidence
+    record:
+      id: design-review-pass-001
+      type: review
+      status: pass
+      uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/design-review.md
+  - kind: artifact
+    id: design-v1
+    status: approved
+    evidence:
+      - design-review-pass-001
+  - kind: gate
+    id: design-gate
+    status: PASS
+    evidence:
+      - design-review-pass-001
+  - kind: stage
+    id: design-review
+    status: DONE
+  - kind: stage
+    id: plan
+    status: READY

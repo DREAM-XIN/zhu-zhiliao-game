@@ -1,0 +1,12 @@
+version: 0.1.0
+id: implementation-artifact-r11
+feature_id: F-ZHIZHILIAO-DEPLOY-0002
+expected_revision: 11
+occurred_at: '2026-08-08T14:33:00Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: implementation-v1
+      type: implementation
+      uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/implementation.md
+      status: draft
