@@ -1,0 +1,9 @@
+version: 0.1.0
+id: verification-working-r15
+feature_id: F-ZHIZHILIAO-DEPLOY-0002
+expected_revision: 15
+occurred_at: '2026-08-09T06:33:00Z'
+changes:
+  - kind: stage
+    id: verification
+    status: WORKING
