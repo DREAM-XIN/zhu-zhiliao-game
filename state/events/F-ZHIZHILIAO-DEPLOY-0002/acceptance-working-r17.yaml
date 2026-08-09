@@ -1,0 +1,9 @@
+version: 0.1.0
+id: acceptance-working-r17
+feature_id: F-ZHIZHILIAO-DEPLOY-0002
+expected_revision: 17
+occurred_at: '2026-08-09T06:39:00Z'
+changes:
+- kind: stage
+  id: acceptance
+  status: WORKING
