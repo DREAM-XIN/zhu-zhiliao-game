@@ -39,7 +39,7 @@ jobs:
           fetch-depth: 0
       - name: Bootstrap AI-SDLC Feature Manifest
         id: control
-        uses: DREAM-XIN/ai-sdlc/.github/actions/control@7f691352a0ce513791209087e945745bf901c6b8
+        uses: DREAM-XIN/ai-sdlc/.github/actions/control@35070b04f671c8339a8610802ea1555e00f5f36b
         with:
           operation: bootstrap
           repository: ${{ github.repository }}

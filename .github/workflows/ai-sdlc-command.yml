@@ -24,12 +24,10 @@ jobs:
         env:
           COMMAND: ${{ github.event.comment.body }}
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-          REPOSITORY_PRIVATE: ${{ github.event.repository.private }}
         run: |
           import os, re
           command = os.environ['COMMAND'].strip()
           default_branch = os.environ['DEFAULT_BRANCH']
-          public_repository = os.environ.get('REPOSITORY_PRIVATE', '').lower() == 'false'
           bootstrap = re.fullmatch(r'/ai-sdlc bootstrap target_ref=([A-Za-z0-9._/-]+) bootstrap=(state/bootstrap/[A-Za-z0-9._/-]+\.ya?ml) manifest=(state/features/[A-Za-z0-9._/-]+\.ya?ml)', command)
           plan = re.fullmatch(r'/ai-sdlc plan target_ref=([A-Za-z0-9._/-]+) manifest=(state/features/[A-Za-z0-9._/-]+\.ya?ml)', command)
           persist = re.fullmatch(r'/ai-sdlc persist target_ref=([A-Za-z0-9._/-]+) manifest=(state/features/[A-Za-z0-9._/-]+\.ya?ml) event=(state/events/[A-Za-z0-9._/-]+/[A-Za-z0-9._:-]+\.ya?ml)', command)
@@ -55,10 +53,6 @@ jobs:
               if target_ref == default_branch: raise SystemExit('AI-SDLC gh-aw command cannot target the default branch')
           else:
               raise SystemExit('unsupported AI-SDLC command; autonomous form is: /ai-sdlc dispatch-gh-aw target_ref=<branch> manifest=state/features/<file>.yaml')
-
-          if public_repository and operation in {'bootstrap', 'plan', 'persist'}:
-              workflow = 'ai-sdlc-cross-repo-lifecycle.yml'
-              control_repo = 'DREAM-XIN/ai-sdlc'
 
           for value in (target_ref, bootstrap_path, manifest_path, event_path):
               if value and '..' in value.split('/'): raise SystemExit('parent traversal is not allowed')
@@ -149,9 +143,9 @@ jobs:
           set -euo pipefail
           command_run="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           if [[ "$ERROR_KIND" == "missing-control-token" ]]; then
-            reason="missing repository secret \`AI_SDLC_CONTROL_DISPATCH_TOKEN\` required to dispatch the private AI-SDLC control repository"
+            reason="missing repository secret \`AI_SDLC_CONTROL_DISPATCH_TOKEN\` required for trusted control-repository dispatch"
           else
-            reason="trusted workflow dispatch failed; verify \`AI_SDLC_CONTROL_DISPATCH_TOKEN\` can run and read Actions in \`DREAM-XIN/ai-sdlc\`"
+            reason="trusted workflow dispatch failed; verify workflow permissions and, for control-repository dispatch, that \`AI_SDLC_CONTROL_DISPATCH_TOKEN\` can run/read Actions in \`DREAM-XIN/ai-sdlc\`"
           fi
           gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" \
             --body "AI-SDLC command failed before downstream execution: \`$OPERATION\` — $reason. Command run: $command_run\n\nTarget ref: \`$TARGET_REF\`\nManifest: \`$MANIFEST_PATH\`"

@@ -1,0 +1,34 @@
+name: AI-SDLC Public Control Smoke
+
+on:
+  pull_request:
+    paths:
+      - '.ai-sdlc/project.yaml'
+      - '.github/workflows/ai-sdlc-*.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-public-control:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+      - name: Validate public AI-SDLC installation
+        id: control
+        uses: DREAM-XIN/ai-sdlc/.github/actions/control@35070b04f671c8339a8610802ea1555e00f5f36b
+        with:
+          operation: validate-installation
+          repository: ${{ github.repository }}
+          default_branch: ${{ github.event.repository.default_branch }}
+      - name: Show installation report
+        if: ${{ always() && steps.control.outputs.installation_report_path != '' }}
+        shell: bash
+        run: cat "${{ steps.control.outputs.installation_report_path }}" >> "$GITHUB_STEP_SUMMARY"
+      - name: Enforce installation result
+        if: ${{ steps.control.outputs.exit_code != '0' }}
+        shell: bash
+        run: exit "${{ steps.control.outputs.exit_code }}"

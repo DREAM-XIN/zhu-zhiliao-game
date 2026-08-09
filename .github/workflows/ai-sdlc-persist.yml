@@ -49,7 +49,7 @@ jobs:
       - name: Resolve automatic Feature Event push
         id: auto
         if: ${{ github.event_name == 'push' }}
-        uses: DREAM-XIN/ai-sdlc/.github/actions/resolve-event-push@7f691352a0ce513791209087e945745bf901c6b8
+        uses: DREAM-XIN/ai-sdlc/.github/actions/resolve-event-push@35070b04f671c8339a8610802ea1555e00f5f36b
         with:
           before_sha: ${{ github.event.before }}
           after_sha: ${{ github.sha }}
@@ -100,7 +100,7 @@ jobs:
       - name: Apply AI-SDLC Feature Event
         id: control
         if: ${{ steps.request.outputs.mode != 'noop' }}
-        uses: DREAM-XIN/ai-sdlc/.github/actions/control@7f691352a0ce513791209087e945745bf901c6b8
+        uses: DREAM-XIN/ai-sdlc/.github/actions/control@35070b04f671c8339a8610802ea1555e00f5f36b
         with:
           operation: persist
           repository: ${{ github.repository }}
