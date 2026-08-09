@@ -1,0 +1,30 @@
+version: 0.1.0
+id: verification-passed-r16
+feature_id: F-ZHIZHILIAO-DEPLOY-0002
+expected_revision: 16
+occurred_at: '2026-08-09T06:34:00Z'
+changes:
+  - kind: artifact-record
+    record:
+      id: verification-v1
+      type: verification
+      uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/verification.md
+      status: draft
+  - kind: evidence
+    record:
+      id: production-pages-verification-001
+      type: verification
+      status: pass
+      uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/evidence/production-pages-verification.md
+  - kind: gate
+    id: verification-gate
+    status: PASS
+    evidence:
+      - implementation-ci-pass-001
+      - production-pages-verification-001
+  - kind: stage
+    id: verification
+    status: DONE
+  - kind: stage
+    id: acceptance
+    status: READY
