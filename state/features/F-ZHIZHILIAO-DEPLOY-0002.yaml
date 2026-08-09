@@ -1,5 +1,5 @@
 protocol_version: 0.1.0
-revision: 16
+revision: 17
 feature:
   id: F-ZHIZHILIAO-DEPLOY-0002
   title: "GitHub Pages \u5728\u7EBF\u8BD5\u73A9\u90E8\u7F72"
@@ -8,7 +8,7 @@ feature:
 workflow:
   profile: standard-feature
   status: ACTIVE
-  current_stage: verification
+  current_stage: acceptance
   stages:
   - id: requirement
     status: DONE
@@ -28,10 +28,10 @@ workflow:
     status: DONE
     gate: code-gate
   - id: verification
-    status: WORKING
+    status: DONE
     gate: verification-gate
   - id: acceptance
-    status: TODO
+    status: READY
     gate: release-gate
 tasks: []
 artifacts:
@@ -63,6 +63,10 @@ artifacts:
   type: code-review
   uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/code-review.md
   status: draft
+- id: verification-v1
+  type: verification
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/verification.md
+  status: draft
 gates:
 - id: requirement-gate
   status: PASS
@@ -77,7 +81,10 @@ gates:
   evidence:
   - code-review-pass-001
 - id: verification-gate
-  status: PENDING
+  status: PASS
+  evidence:
+  - implementation-ci-pass-001
+  - production-pages-verification-001
 - id: release-gate
   status: PENDING
 evidence:
@@ -97,6 +104,10 @@ evidence:
   type: review
   status: pass
   uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/reviews/code-review.md
+- id: production-pages-verification-001
+  type: verification
+  status: pass
+  uri: docs/features/F-ZHIZHILIAO-DEPLOY-0002/evidence/production-pages-verification.md
 applied_events:
 - req-start-r0
 - req-complete-r1
@@ -114,4 +125,5 @@ applied_events:
 - code-review-working-r13
 - code-review-passed-r14
 - verification-working-r15
-updated_at: '2026-08-09T06:33:00Z'
+- verification-passed-r16
+updated_at: '2026-08-09T06:34:00Z'
